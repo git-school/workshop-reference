@@ -59,3 +59,7 @@ Some Git commands accept ranges of commits; the double and triple dot syntax is 
   * Same as `^rev1 rev2` (aka `rev2 --not rev1`)
 * `<rev1>...<rev2>` - all commits reachable from either `rev1` or `rev2`, but not both
   * Same as `r1 r2 --not $(git merge-base --all r1 r2)`
+
+## The Three Trees
+
+The official Git website has [a great page documenting `git reset` and `git checkout`](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
