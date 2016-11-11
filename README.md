@@ -63,3 +63,38 @@ Some Git commands accept ranges of commits; the double and triple dot syntax is 
 ## The Three Trees
 
 The official Git website has [a great page documenting `git reset` and `git checkout`](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
+
+## Reflog
+
+https://www.youtube.com/watch?v=Vxc9m_OVyo0
+
+Throughout the course we identified ways to alter the commit history, and we know that since commits are immutable in Git, when we change our Git history with commands like `reset`, `rebase`, and `amend`, what we’re really doing is changing what our branch reference is pointing to, sometimes creating new commits in the process.
+
+But what happens to the old commits that used to be in our branch history? Well if there is no longer a branch pointing to them, they become "dangling commits" and Git will eventually garbage collect them since it assumes they’re no longer needed. Thankfully this garbage collection doesn’t happen for a month or so, because sometimes we’ll find ourselves in situations where we want to recover those “dangling commits” and restore our history to what it was before we changed it.
+
+This can be the case when we do a `rebase`, `reset`, or `amend` and realize that we made a mistake and want to undo the operation. Fortunately, Git keeps a handy chronological history of every commit that `HEAD` has ever been on as well as a description of why `HEAD` moved to that particular commit. This history is knowns as the Reflog and can be viewed via the `reflog` command:
+
+```
+>> git reflog
+70ad6cd HEAD@{0}: reset: moving to head~
+08c773c HEAD@{1}: rebase finished: returning to refs/heads/branch
+08c773c HEAD@{2}: rebase: Fixed the thing
+da272e2 HEAD@{3}: rebase: checkout master
+821ef69 HEAD@{4}: commit: Fixed the thing
+dce83e5 HEAD@{5}: pull origin branch: Fast-forward
+5a24d37 HEAD@{6}: checkout: moving from master to branch
+5feca61 HEAD@{7}: commit (amend): Initial commit
+079d913 HEAD@{8}: commit: Initial commit
+29345e6 HEAD@{9}: clone: from git@github.com:github/repo.git
+```
+
+Using the reflog, we can identify what commit we want to go back to, and use `git reset —hard <sha>` to effectively undo and go back to the state we were in before re-writing our history. To go back `n` commits I would type `git reset —hard HEAD@{n}`
+
+Using the example reflog above, to “undo” my last `reset`, I can type `git reset —hard 08c773c
+ ` or simply `git reset —hard HEAD@{1}` to go to the commit that head was on 1 commit ago.
+
+You can also view the reflog for your branches by typing `git reflog branch-name`. Fun fact - when you’re using Git’s stash feature you’re creating commits that get added to a special stash reflog. You can access these commits via `git reflog stash`.
+
+The reflog allows us to re-write history and delete branches without the fear of forever losing the commits. We can take comfort in the fact that we have a whole month to recover dangling commits and restore our branch to whatever previous state we had before. Commits in the reflog that are not danging and are still on a branch will be kept in the reflog for 3 months.
+
+In terms of enhancing your day-to-day workflow, you might consider taking advantage of the reflog by making frequent work-in-progress commits. Once your work is committed, even if you re-write history or delete branches, you can always recover it via the reflog.
