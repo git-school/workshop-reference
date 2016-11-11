@@ -88,10 +88,10 @@ dce83e5 HEAD@{5}: pull origin branch: Fast-forward
 29345e6 HEAD@{9}: clone: from git@github.com:github/repo.git
 ```
 
-Using the reflog, we can identify what commit we want to go back to, and use `git reset —hard <sha>` to effectively undo and go back to the state we were in before re-writing our history. To go back `n` commits I would type `git reset —hard HEAD@{n}`
+Using the reflog, we can identify what commit we want to go back to, and use `git reset --hard <sha>` to effectively undo and go back to the state we were in before re-writing our history. To go back `n` commits I would type `git reset --hard HEAD@{n}`
 
-Using the example reflog above, to “undo” my last `reset`, I can type `git reset —hard 08c773c
- ` or simply `git reset —hard HEAD@{1}` to go to the commit that head was on 1 commit ago.
+Using the example reflog above, to “undo” my last `reset`, I can type `git reset --hard 08c773c
+ ` or simply `git reset --hard HEAD@{1}` to go to the commit that head was on 1 commit ago.
 
 You can also view the reflog for your branches by typing `git reflog branch-name`. Fun fact - when you’re using Git’s stash feature you’re creating commits that get added to a special stash reflog. You can access these commits via `git reflog stash`.
 
