@@ -64,6 +64,8 @@ Some Git commands accept ranges of commits; the double and triple dot syntax is 
 
 The official Git website has [a great page documenting `git reset` and `git checkout`](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
 
+[Scripts](https://github.com/git-school/workshop-reference/blob/master/three-trees-watch-scripts.md) for watching the three trees.
+
 ## Reflog
 
 https://www.youtube.com/watch?v=Vxc9m_OVyo0
