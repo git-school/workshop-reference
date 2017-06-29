@@ -66,6 +66,12 @@ The official Git website has [a great page documenting `git reset` and `git chec
 
 [Scripts](https://github.com/git-school/workshop-reference/blob/master/three-trees-watch-scripts.md) for watching the three trees.
 
+## diff3 Conflict Style
+
+Set `git config --global merge.conflictStyle diff3` to enable the diff3 merge conflict style, which shows a new section in merge conflic that represents the state of the file at the merge base.
+
+Run `git checkout --conflict=diff3 -- filename` to change the merge conflict markers in `filename` to the diff3 style (note that any unsaved changes in `filename` will be lost!)
+
 ## Reflog
 
 https://www.youtube.com/watch?v=Vxc9m_OVyo0
